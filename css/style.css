@@ -1,0 +1,283 @@
+html {
+  height: 100%;
+  font-family: arial;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.button {
+  text-align: center;
+  background: #DDD;
+  text-decoration: none;
+  color: black;
+  border: 1px solid #999;
+  border-radius: 2px;
+  padding: 2px 5px;
+  display: block;
+  cursor: pointer;
+}
+
+.clearfix {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.ok {
+  color: green;
+}
+
+.debt {
+  color: red;
+}
+
+/* Page layout */
+
+#page {
+  background: #FCFCFC;
+}
+
+.page-title {
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  border-bottom: 1px solid #333;
+  height: 25px;
+}
+
+.page-title input {
+  margin: 0 40px;
+  width: calc(100% - 80px);
+  font-size: 16px;
+  text-align: center;
+}
+
+.page-controls {
+  height: 25px;
+  padding: 5px;
+  border-bottom: 1px solid #666;
+}
+
+.page-controls a,
+.page-controls div {
+  float: left;
+  margin-right: 5px;
+  display: block;
+  text-decoration: none;
+}
+
+.errors {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page-body {
+  height: calc(100% - 71px);
+  overflow-y: auto;
+  clear: both;
+  padding: 0px 10px;
+}
+
+.three-column-list-item {
+  float: left;
+  clear: both;
+  width: 100%;
+  border-bottom: 1px solid #aaa;
+}
+
+.three-column-list-item .column-1 {
+  float: left;
+  width: 50%;
+  color: #000;
+  font-size: 14px;
+  word-wrap: break-word;
+  text-decoration: none;
+  padding: 10px 0px;
+}
+
+.three-column-list-item .column-2 {
+  float: left;
+  width: 25%;
+  text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.three-column-list-item .column-3 {
+  float: left;
+  width: 25%;
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+/* Main page */
+
+.main-page .page-controls > a {
+  float: none;
+}
+
+a.add-event-button {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.main-page .event {
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  width: calc(100% - 20px);
+
+  border-bottom: 1px solid #aaa;
+  word-wrap: break-word;
+  color: #000;
+  text-decoration: none;
+}
+
+/* Add thing page */
+.add-page input {
+  width: calc(100% - 40px);
+  height: 30px;
+  margin: 20px 20px 0px 20px;
+  font-size: 20px;
+}
+
+/* Add event partner page */
+
+.add-event-partner-page #partners_select {
+  width: calc(100% - 40px);
+  font-size: 20px;
+  margin: 0px 20px 0px 20px;
+}
+
+.add-event-partner-page #name {
+  margin-top: 0;
+}
+
+.add-event-partner-page label {
+  width: calc(100% - 40px);
+  font-weight: bold;
+  margin: 10px 20px;
+  display: block;
+}
+
+/* Event page */
+
+.event-page .delete-event-button {
+  float: right;
+}
+
+.event-page .partner-controls {
+  padding-top: 7px;
+}
+
+/* Add payment page */
+
+.add-payment-page label {
+  width: calc(100% - 40px);
+  font-weight: bold;
+  margin: 10px 20px 0px;
+  display: block;
+}
+
+.add-payment-page input[type="text"] {
+  width: calc(100% - 40px);
+  height: 30px;
+  margin: 0px 20px;
+  font-size: 20px;
+}
+
+.add-payment-page .name-loan-wrap {
+  width: 100%;
+}
+
+.add-payment-page .name-loan-wrap .subject-name {
+  width: 70%;
+  float: left;
+}
+  
+.add-payment-page .name-loan-wrap .subject-is-loan {
+  width: 30%;
+  float: left;
+  text-align: center;
+}
+
+.add-payment-page .select-all-wrap {
+  width: calc(100% - 40px);
+  margin-top: 20px;
+}
+
+.add-payment-page #select_all_partners {
+  float: right;
+}
+
+.add-payment-page .payment-partner-list {
+  clear: both;
+  margin: 0px 20px;
+  display: table;
+  width: calc(100% - 40px);
+}
+
+.add-payment-page .payment-partner-list .partner-wrap {
+  display: table-row;
+}
+
+.add-payment-page .payment-partner-list label {
+  display: table-cell;
+  padding: 2px 0px;
+}
+
+.add-payment-page .payment-partner-list .partner-wrapper input {
+  display: table-cell;
+}
+
+.add-payment-page .add-payment-button {
+  width: calc(100% - 40px);
+  margin: 20px;
+  font-size: 20px;
+}
+
+/* Event partner page */
+.event-partner-page .delete-partner-button {
+  float: right;
+}
+
+.event-partner-page .balance {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 5px 0px 0px;
+  text-align: center;
+  border-bottom: 1px dashed #aaa;
+}
+
+.event-partner-page .partner-payment-subject-balance {
+  text-align: center;
+}
+
+/* Payment subject page */
+
+.payment-subject-page .delete-subject-button {
+  float: right;
+}
+
+.payment-subject-page .payment-subject-cost {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 5px 0px 0px;
+  text-align: center;
+  border-bottom: 1px dashed #aaa;
+}
+
+.payment-subject-page .partner-controls {
+  padding-top: 7px;
+}
+
+.payment-subject-page .return-debt-button {
+  font-size: 14px;
+}
