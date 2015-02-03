@@ -91,7 +91,9 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
         else {
           var payment = paymentSubject.addPayment(
             this.options.payer,
-            cost
+            // If it is loan, then payment subject has cost, multiplied by 2,
+            // and payment should have same cost, because all calculation should lead to 0.
+            isLoan ? cost * 2 : cost
           );
           if (!(payment instanceof Payment)) {
             errors = payment;

@@ -80,7 +80,7 @@ function (Backbone, PayCalcModel, PaymentSubject, Partner, Payment) {
 
     addPaymentSubject: function (name, cost, isLoan, partners) {
       // If payer lend people, then total cost of payment subject should be
-      // multiplied by two.
+      // multiplied by two to simulate loan.
       if (isLoan) {
         cost = cost * 2;
       }

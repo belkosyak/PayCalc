@@ -34,7 +34,7 @@ function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
 
     routePages: function () {
       var path = arguments[0];
-      // If it is home page, then args will bu null.
+      // If it is home page, then args will be null.
       if (!path) {
         path = '';
       }
