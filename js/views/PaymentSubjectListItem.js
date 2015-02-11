@@ -4,10 +4,10 @@ function (_, Backbone) {
   return Backbone.View.extend({
     template: _.template('\n\
       <a href="#payment-subject/<%= eventId %>/<%= subjectId %>/<%= backPath %>"\n\
-          class="name column-1">\n\
+          class="name btn btn-info col-xs-6">\n\
         <%- name %>\n\
       </a>\n\
-      <div class="subject-cost column-2">\n\
+      <div class="subject-cost col-xs-3 text-center">\n\
         <%- cost %>\n\
       </div>\n\
     '),

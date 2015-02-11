@@ -4,17 +4,15 @@ function (_, PageView, NameTextFieldView, PartnerPaymentSubjectListItem) {
   return PageView.extend({
     template: _.template('\n\
       <div class="event-partner-page">\n\
-        <div class="page-title h1"></div>\n\
-        <div class="page-controls">\n\
-          <a href="#event/<%= eventId %>">\n\
-            <div class="events-page-link button">Event page</div>\n\
-          </a>\n\
-          <div class="delete-partner-button button">X</div>\n\
+        <div class="page-title h1 container"></div>\n\
+        <div class="page-controls container">\n\
+          <a href="#event/<%= eventId %>" class="btn btn-default">Event page</a>\n\
+          <div class="delete-partner-button btn btn-danger pull-right">X</div>\n\
         </div>\n\
-        <div class="page-body">\n\
-          <div class="balance <%= balanceClass %>">\n\
-            Total balance: <%- balance %>\n\
-          </div>\n\
+        <div class="h4 balance container <%= balanceClass %>">\n\
+          Total balance: <%- balance %>\n\
+        </div>\n\
+        <div class="page-body payment-list container">\n\
           <!-- Place to render payment subject list -->\n\
         </div>\n\
       </div>\n\

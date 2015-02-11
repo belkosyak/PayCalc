@@ -3,8 +3,8 @@ function (_, Backbone, PaymentSubjectListItem) {
 
   return Backbone.View.extend({
     template: _.template('\n\
-      <div class="partner-payment-subject three-column-list-item">\n\
-        <div class="partner-payment-subject-balance column-3 <%= balanceClass %>">\n\
+      <div class="partner-payment-subject contaner clearfix">\n\
+        <div class="partner-payment-subject-balance col-xs-3 text-center <%= balanceClass %>">\n\
           <%- balance %>\n\
         </div>\n\
       </div>\n\

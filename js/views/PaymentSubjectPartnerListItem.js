@@ -3,16 +3,17 @@ function (_, Backbone) {
 
   return Backbone.View.extend({
     template: _.template('\n\
-      <div class="partner three-column-list-item">\n\
-        <a href="#partner/<%= eventId %>/<%= id %>" class="name column-1">\n\
-            <%- name %>\n\
+      <div class="partner container">\n\
+        <a href="#partner/<%= eventId %>/<%= id %>"\n\
+            class="name btn btn-info col-xs-6">\n\
+          <%- name %>\n\
         </a>\n\
-        <div class="partner-balance column-2 <%= balanceClass %>">\n\
+        <div class="partner-balance text-center col-xs-3 <%= balanceClass %>">\n\
           <%- balance %>\n\
         </div>\n\
         <% if (balance < 0) { %>\n\
-          <div class="partner-controls column-3">\n\
-            <a class="return-debt-button button">Return</a>\n\
+          <div class="partner-controls col-xs-3 no-padding">\n\
+            <a class="return-debt-button btn btn-primary btn-block">Return</a>\n\
           </div>\n\
         <% } %>\n\
       </div>\n\
