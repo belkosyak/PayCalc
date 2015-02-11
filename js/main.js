@@ -1,9 +1,9 @@
 require.config({
   urlArgs: "ver=v1",
   paths: {
-    'jquery': 'libs/jquery',
-    'underscore': 'libs/underscore',
-    'backbone': 'libs/backbone',
+    'jquery': '../bower_components/jquery/dist/jquery.min',
+    'underscore': '../bower_components/underscore/underscore-min',
+    'backbone': '../bower_components/backbone/backbone',
     'App': 'models/App',
     'PayCalcModel': 'models/PayCalcModel',
     'Event': 'models/Event',

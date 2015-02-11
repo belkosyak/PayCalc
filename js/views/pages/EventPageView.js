@@ -4,15 +4,15 @@ function (_, PageView, NameTextFieldView, EventPartnerListItem) {
   return PageView.extend({
     template: _.template('\n\
       <div class="event-page">\n\
-        <div class="page-title"></div>\n\
-        <div class="page-controls">\n\
-          <a href="#" class="back-button button">Back</a>\n\
-          <a href="#add-partner/<%= id %>" class="add-partner-button button">\n\
+        <div class="page-title h1 container"></div>\n\
+        <div class="page-controls container">\n\
+          <a href="#" class="btn btn-default">Back</a>\n\
+          <a href="#add-partner/<%= id %>" class="btn btn-default">\n\
             Add partner\n\
           </a>\n\
-          <div class="delete-event-button button">X</div>\n\
+          <div class="delete-event-button btn btn-danger pull-right">X</div>\n\
         </div>\n\
-        <div class="page-body">\n\
+        <div class="page-body partner-list">\n\
           <!-- Place to render EventPartnerListItem list -->\n\
         </div>\n\
       </div>\n\

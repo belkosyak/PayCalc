@@ -4,46 +4,60 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
   return PageView.extend({
     template: _.template('\n\
       <div class="add-payment-page">\n\
-        <div class="page-title">Add payment</div>\n\
-        <div class="page-controls">\n\
-          <a href="#<%= backPath %>">\n\
-            <div class="back-button button">Back</div>\n\
-          </a>\n\
+        <div class="page-title h1">Add payment</div>\n\
+        <div class="page-controls container">\n\
+          <a href="#<%= backPath %>" class="btn btn-default">Back</a>\n\
         </div>\n\
-        <div class="page-body">\n\
+        <div class="page-body container">\n\
           <div class="errors"></div>\n\
-          <label for="cost">How much</label>\n\
-          <input type="text" id="cost" />\n\
-          <div class="name-loan-wrap clearfix">\n\
-            <div class="subject-name">\n\
-              <label for="name">Subject</label>\n\
-              <input type="text" id="name"/>\n\
+          <div class="form-horizontal">\n\
+            <div class="form-group">\n\
+              <label for="cost" class="col-xs-3 control-label">How much</label>\n\
+              <div class="col-xs-9">\n\
+                <input type="text" id="cost" class="form-control" />\n\
+              </div>\n\
             </div>\n\
-            <div class="subject-is-loan">\n\
-              <label for="is_loan">Is Loan</label>\n\
-              <input type="checkbox" id="is_loan" />\n\
+            <div class="form-group">\n\
+              <label for="name" class="col-xs-3 control-label">Subject</label>\n\
+              <div class="col-xs-9">\n\
+                <input type="text" id="name" class="form-control"/>\n\
+              </div>\n\
+            </div>\n\
+            <div class="form-group">\n\
+              <div class="col-xs-offset-3 col-xs-9">\n\
+                <div class="checkbox">\n\
+                  <label>\n\
+                    <input type="checkbox" id="is_loan" />\n\
+                    Is Loan</label>\n\
+                  </label>\n\
+                </div>\n\
+              </div>\n\
             </div>\n\
           </div>\n\
-          <div class="select-all-wrap">\n\
-            <div id="select_all_partners" class="button">Select all</div>\n\
-          </div>\n\
-          <div class="payment-partner-list">\n\
-            <% partners.each(function (partner) { %>\n\
-              <div class="partner-wrap">\n\
-                <label for="partner-checkbox-<%= partner.get("id") %>">\n\
+          <div class="form-group">\n\
+            <label>Choose partners to pay for</label>\n\
+            <div class="form-group">\n\
+              <div id="select_all_partners"\n\
+                  class="btn btn btn-success btn-sm">\n\
+                Select all partners\n\
+              </div>\n\
+            </div>\n\
+            <div class="payment-partner-list">\n\
+              <% partners.each(function (partner) { %>\n\
+                <label class="checkbox-inline">\n\
+                  <input type="checkbox" data-id="<%= partner.get("id") %>"\n\
+                    <% if (partner == payer) { %>\n\
+                      disabled="disabled" checked\n\
+                    <% } %>\n\
+                  >\n\
                   <%- partner.get("name") %>\n\
                 </label>\n\
-                <input type="checkbox"\n\
-                  id="partner-checkbox-<%= partner.get("id") %>"\n\
-                  data-id="<%= partner.get("id") %>"\n\
-                  <% if (partner == payer) { %>\n\
-                    disabled="disabled" checked\n\
-                  <% }  %>\n\
-                >\n\
-              </div>\n\
-            <% });	%>\n\
+              <% });	%>\n\
+            </div>\n\
           </div>\n\
-          <input type="button" value="OK" class="add-payment-button button" />\n\
+          <div class="form-group">\n\
+            <input type="button" value="OK" class="add-payment-button btn btn-primary btn-block" />\n\
+          </div>\n\
         </div>\n\
       </div>\n\
     '),

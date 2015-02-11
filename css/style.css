@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  margin: 0;
   height: 100%;
 }
 
@@ -20,11 +19,16 @@ body {
   cursor: pointer;
 }
 
-.clearfix {
+.no-padding {
+  padding: 0;
+}
+
+/*.clearfix {
   content: "";
   display: table;
   clear: both;
 }
+*/
 
 .ok {
   color: green;
@@ -36,40 +40,34 @@ body {
 
 /* Page layout */
 
-#page {
-  background: #FCFCFC;
-}
-
 .page-title {
-  padding: 5px;
+  /*padding: 5px;*/
   text-align: center;
-  font-weight: bold;
-  font-size: 20px;
-  border-bottom: 1px solid #333;
-  height: 25px;
+  /*font-weight: bold;*/
+  /*font-size: 20px;*/
+  /*border-bottom: 1px solid #333;*/
 }
 
-.page-title input {
+/*.page-title input {
   margin: 0 40px;
   width: calc(100% - 80px);
   font-size: 16px;
   text-align: center;
 }
+*/
 
 .page-controls {
-  height: 25px;
-  padding: 5px;
-  border-bottom: 1px solid #666;
+  margin-bottom: 1em;
 }
 
-.page-controls a,
+/*.page-controls a,
 .page-controls div {
   float: left;
   margin-right: 5px;
   display: block;
   text-decoration: none;
 }
-
+*/
 .errors {
   color: red;
   font-weight: bold;
@@ -77,13 +75,16 @@ body {
 }
 
 .page-body {
-  height: calc(100% - 71px);
+/*  height: calc(100% - 71px);
   overflow-y: auto;
   clear: both;
   padding: 0px 10px;
-}
+*/}
 
-.three-column-list-item {
+.partner-list .partner {
+  margin-bottom: 0.5em;
+}
+/*.three-column-list-item {
   float: left;
   clear: both;
   width: 100%;
@@ -114,19 +115,19 @@ body {
   font-size: 14px;
   padding-top: 10px;
 }
-
+*/
 /* Main page */
 
-.main-page .page-controls > a {
+/*.main-page .page-controls > a {
   float: none;
 }
-
-a.add-event-button {
+*/
+/*a.add-event-button {
   width: 50%;
   margin: 0 auto;
 }
-
-.main-page .event {
+*/
+/*.main-page .event {
   width: 100%;
   display: block;
   text-align: center;
@@ -139,18 +140,13 @@ a.add-event-button {
   color: #000;
   text-decoration: none;
 }
+*/
 
-/* Add thing page */
-.add-page input {
-  width: calc(100% - 40px);
-  height: 30px;
-  margin: 20px 20px 0px 20px;
-  font-size: 20px;
-}
+
 
 /* Add event partner page */
 
-.add-event-partner-page #partners_select {
+/*.add-event-partner-page #partners_select {
   width: calc(100% - 40px);
   font-size: 20px;
   margin: 0px 20px 0px 20px;
@@ -166,20 +162,10 @@ a.add-event-button {
   margin: 10px 20px;
   display: block;
 }
-
-/* Event page */
-
-.event-page .delete-event-button {
-  float: right;
-}
-
-.event-page .partner-controls {
-  padding-top: 7px;
-}
-
+*/
 /* Add payment page */
 
-.add-payment-page label {
+/*.add-payment-page label {
   width: calc(100% - 40px);
   font-weight: bold;
   margin: 10px 20px 0px;
@@ -242,7 +228,7 @@ a.add-event-button {
   margin: 20px;
   font-size: 20px;
 }
-
+*/
 /* Event partner page */
 .event-partner-page .delete-partner-button {
   float: right;

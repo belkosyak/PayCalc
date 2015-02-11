@@ -3,19 +3,21 @@ function (_, PageView, Event, Partner) {
 
   return PageView.extend({
     template: _.template('\n\
-      <div class="add-page add-event-page">\n\
-        <div class="page-title">\n\
+      <div class="add-page">\n\
+        <div class="page-title h1">\n\
           Enter event name\n\
         </div>\n\
-        <div class="page-controls">\n\
-          <a href="#">\n\
-            <div class="back-button button">Back</div>\n\
-          </a>\n\
+        <div class="page-controls container">\n\
+          <a href="#" class="btn btn-default">Back</a>\n\
         </div>\n\
-        <div class="page-body">\n\
+        <div class="page-body container">\n\
           <div class="errors"></div>\n\
-          <input type="text" placeholder="Name"/>\n\
-          <input class="button add-event-button" type="button" value="Add" />\n\
+          <div class="form-group">\n\
+            <input type="text" placeholder="Name" class="form-control" />\n\
+          </div>\n\
+          <div class="form-group">\n\
+            <input class="add-event-button btn btn-primary btn-block" type="button" value="Add" />\n\
+          </div>\n\
         </div>\n\
       </div>\n\
     '),

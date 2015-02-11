@@ -3,24 +3,29 @@ function (_, PageView, Event, Partner) {
 
   return PageView.extend({
     template: _.template('\n\
-      <div class="add-page add-event-partner-page">\n\
-        <div class="page-title">\n\
+      <div class="add-page">\n\
+        <div class="page-title h1">\n\
           Add partner\n\
         </div>\n\
-        <div class="page-controls">\n\
-          <a href="#event/<%= eventId %>">\n\
-            <div class="back-button button">Back</div>\n\
-          </a>\n\
+        <div class="page-controls container">\n\
+          <a href="#event/<%= eventId %>" class="btn btn-default">Back</a>\n\
         </div>\n\
-        <div class="page-body">\n\
+        <div class="page-body container">\n\
           <div class="errors"></div>\n\
-          <label for="partners_select">Choose</label>\n\
-          <select id="partners_select">\n\
-            <%= partnerOptions %>\n\
-          </select>\n\
-          <label for="name">or Type in name</label>\n\
-          <input type="text" id="name" placeholder="Name"/>\n\
-          <input class="button add-partner-button" type="button" value="Add" />\n\
+          <div class="form-group">\n\
+            <label for="partners_select">Choose</label>\n\
+            <select id="partners_select" class="form-control">\n\
+              <%= partnerOptions %>\n\
+            </select>\n\
+          </div>\n\
+          <div class="form-group">\n\
+            <label for="name">or Type in name</label>\n\
+            <input type="text" id="name" placeholder="Name" class="form-control"/>\n\
+          </div>\n\
+          <div class="form-group">\n\
+            <input class="add-partner-button btn btn-primary btn-block"\n\
+                type="button" value="Add" />\n\
+          </div>\n\
         </div>\n\
       </div>\n\
     '),

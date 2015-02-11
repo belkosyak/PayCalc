@@ -3,7 +3,7 @@ function (_, Backbone) {
 
   // View to render textfield, which represents some model 'name' property.
   return Backbone.View.extend({
-    template: _.template('<input type="text" class="name-field" value="<%- name %>"/>'),
+    template: _.template('<div class="form-group"><input type="text" class="form-control" value="<%- name %>"/></div>'),
 
     events: {
       'change input': 'changeName'

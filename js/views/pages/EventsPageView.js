@@ -4,18 +4,20 @@ function (_, PageView) {
   return PageView.extend({
     template: _.template('\n\
       <div class="main-page">\n\
-        <div class="page-title">Choose event</div>\n\
-        <div class="page-controls">\n\
-          <a href="#add-event" class="add-event-button button">\n\
+        <div class="page-title h1">Choose event</div>\n\
+        <div class="page-controls container">\n\
+          <a href="#add-event" class="btn btn-primary btn-block">\n\
             Add event\n\
           </a>\n\
         </div>\n\
-        <div class="page-body">\n\
-          <% events.each(function (event) { %>\n\
-            <a class="event" href="#event/<%= event.get("id") %>">\n\
-              <%- event.get("name") %>\n\
-            </a>\n\
-          <% });	%>\n\
+        <div class="page-body container">\n\
+          <div class="btn-group-vertical center-block" role="group">\n\
+            <% events.each(function (event) { %>\n\
+              <a class="btn btn-default btn-block" href="#event/<%= event.get("id") %>">\n\
+                <%- event.get("name") %>\n\
+              </a>\n\
+            <% });	%>\n\
+          </div>\n\
         </div>\n\
       </div>\n\
     '),

@@ -6,9 +6,7 @@ function (_, PageView, NameTextFieldView, PaymentSubjectPartnerListItem) {
       <div class="payment-subject-page">\n\
         <div class="page-title"></div>\n\
         <div class="page-controls">\n\
-          <a href="#<%= backPath %>">\n\
-            <div class="back-button button">Back</div>\n\
-          </a>\n\
+          <a href="#<%= backPath %>" class="btn btn-default">Back</a>\n\
           <div class="delete-subject-button button">X</div>\n\
         </div>\n\
         <div class="page-body">\n\

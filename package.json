@@ -1,0 +1,14 @@
+{
+  "name": "PayCalc",
+  "version": "1.0.0",
+  "description": "Application, which calculates debts within team of persons. Someone pay for something and all another partners should give back money, which have been payed for them, so in the end of event all partners should have 0 as their balance.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://belkosyak@bitbucket.org/belkosyak/paycalc.git"
+  },
+  "author": "Constantin Belenkiy <belkosyak@gmail.com>"
+}

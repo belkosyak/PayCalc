@@ -1,0 +1,21 @@
+{
+  "name": "PayCalc",
+  "version": "1.0.0",
+  "authors": [
+    "Constantin Belenkiy <belkosyak@gmail.com>"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}
