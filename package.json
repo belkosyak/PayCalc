@@ -10,5 +10,8 @@
     "type": "git",
     "url": "https://belkosyak@bitbucket.org/belkosyak/paycalc.git"
   },
-  "author": "Constantin Belenkiy <belkosyak@gmail.com>"
+  "author": "Constantin Belenkiy <belkosyak@gmail.com>",
+  "dependencies": {
+    "requirejs": "^2.1.16"
+  }
 }
