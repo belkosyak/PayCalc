@@ -7,6 +7,8 @@ function (_, PageView, NameTextFieldView, PaymentSubjectPartnerListItem) {
         <div class="page-title h1 container"></div>\n\
         <div class="page-controls container">\n\
           <a href="#<%= backPath %>" class="btn btn-default">Back</a>\n\
+          <a href="#add-sponsor/<%= eventId %>/<%= subjectId %>"\n\
+              class="add-sponsor btn btn-default">Add Sponsor</a>\n\
           <div class="delete-subject-button btn btn-danger pull-right">X</div>\n\
         </div>\n\
         <div class="h4 container">\n\
@@ -32,6 +34,8 @@ function (_, PageView, NameTextFieldView, PaymentSubjectPartnerListItem) {
         cost = cost / 2;
       }
       this.$el.html(this.template({
+        subjectId: this.model.get('id'), 
+        eventId: this.options.event.get('id'),
         cost: cost,
         backPath: this.options.backPath
       }));

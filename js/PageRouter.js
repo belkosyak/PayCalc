@@ -1,9 +1,10 @@
 define(['backbone', 'EventsPageView', 'AddEventPageView',
             'AddEventPartnerPageView', 'EventPageView', 'AddPaymentPageView',
-            'EventPartnerPageView', 'PaymentSubjectPageView'],
+            'EventPartnerPageView', 'PaymentSubjectPageView',
+            'AddPaymentSubjectSponsorPageView'],
 function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
             EventPageView, AddPaymentPageView, EventPartnerPageView,
-            PaymentSubjectPageView) {
+            PaymentSubjectPageView, AddPaymentSubjectSponsorPageView) {
 
   return Backbone.Router.extend({
     pageView: null,
@@ -17,7 +18,8 @@ function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
       'add-partner': 'addPartnerPage',
       'pay': 'addPaymentPage',
       'partner': 'partnerPage',
-      'payment-subject': 'paymentSubjectPage'
+      'payment-subject': 'paymentSubjectPage',
+      'add-sponsor': 'addPaymentSubjectSponsorPage'
     },
 
     initialize: function (app) {
@@ -97,7 +99,16 @@ function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
       var event = this.events.get(eventId);
       this.pageView = new PaymentSubjectPageView({
         model: event.get('paymentSubjects').get(subjectId),
+        event: event,
         backPath: decodeURIComponent(backPath)
+      });
+    },
+
+    addPaymentSubjectSponsorPage: function (eventId, subjectId) {
+      var event = this.events.get(eventId);
+      this.pageView = new AddPaymentSubjectSponsorPageView({
+        model: event.get('paymentSubjects').get(subjectId),
+        event: event
       });
     }
   });

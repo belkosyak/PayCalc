@@ -25,7 +25,15 @@ function (_, Backbone) {
       _.defer(function () {
         self.$el.find('.init-focus').focus();  
       });
+    },
+
+    showErrors: function (errors) {
+      var errorsWrapper = this.$el.find('.errors').empty();
+      _.each(errors, function (errorString) {
+        errorsWrapper.append(errorString);
+      });
     }
+
   });
 
 });

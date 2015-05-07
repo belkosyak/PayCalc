@@ -19,12 +19,14 @@ function (_, Backbone) {
       </div>\n\
     '),
 
-    returnDebtTpl: _.template("\n\
-      <%= partnerName %> debt (<%= totalAmount %>) has been returned to:\n\
-      <% _.each(parts, function (part) { %>\n\
-        <%= part.partner.get('name') %>: <%= part.amount %>\n\
-      <% });%>\n\
-    "),
+    returnDebtTpl: _.template([
+      "<%= partnerName %> debt (<%= totalAmount %>) has been returned to:\n",
+      "<% _.each(parts, function (part) { %>",
+        "<% if (part.amount > 0) { %>",
+          "<%= part.partner.get('name') %>: <%= part.amount %>",
+        "<% } %>",
+      "<% });%>"].join('')
+    ),
 
     initialize: function (options) {
       this.subject = options.subject;

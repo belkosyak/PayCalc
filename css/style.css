@@ -41,3 +41,7 @@ body {
 .partner-balance, .subject-cost, .partner-payment-subject-balance {
   padding-top: 6px;
 }
+
+.m-r-10 {
+  margin-right: 10px;
+}

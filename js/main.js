@@ -17,6 +17,7 @@ require.config({
     'EventPageView': 'views/pages/EventPageView',
     'EventsPageView': 'views/pages/EventsPageView',
     'PaymentSubjectPageView': 'views/pages/PaymentSubjectPageView',
+    'AddPaymentSubjectSponsorPageView': 'views/pages/AddPaymentSubjectSponsorPageView',
     'NameTextFieldView': 'views/NameTextFieldView',
     'EventPartnerListItem': 'views/EventPartnerListItem',
     'EventPartnerPageView': 'views/pages/EventPartnerPageView',

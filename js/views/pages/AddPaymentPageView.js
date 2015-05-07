@@ -52,7 +52,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
                   >\n\
                   <%- partner.get("name") %>\n\
                 </label>\n\
-              <% });	%>\n\
+              <% }); %>\n\
             </div>\n\
           </div>\n\
           <div class="form-group">\n\
@@ -120,10 +120,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
           }
         }
       }
-      var self = this;
-      _.each(errors, function (errorString) {
-        self.$('.errors').empty().append(errorString);
-      });
+      this.showErrors(errors);
       return;
     },
 

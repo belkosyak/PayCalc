@@ -77,13 +77,6 @@ function (_, PageView, Event, Partner) {
       }
     },
 
-    showErrors: function (errors) {
-      var errorsWrapper = this.$el.find('.errors').empty();
-      _.each(errors, function (errorString) {
-        errorsWrapper.append(errorString);
-      });
-    },
-
     generatePartnerOptions: function () {
       var options = '<option value="">None</option>';
       var eventPartners = this.options.event.get('partners');

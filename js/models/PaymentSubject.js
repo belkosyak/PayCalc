@@ -110,7 +110,7 @@ function (Backbone, PayCalcModel, Partner, Payment) {
     /**
      * Returns full partner debt for this payment subject.
      * Creates partner's payment and recrease other payment subject partners
-     * payments.
+     * payments. Add created payment to subject and save it.
      * @param partner Partner object
      * @return {object} Hash with keys:
      *   - total: Total amount of returned debt.
@@ -129,10 +129,6 @@ function (Backbone, PayCalcModel, Partner, Payment) {
       var debt = -1 * debtorBalance;
 
       // Return debt to other partners as possible.
-      var self = this;
-      var partnerBalance;
-      var returnPart;
-
       var returnedDebtInfo = this.spreadMoney(debt, new Backbone.Collection([partner]));
 
       if (debt - returnedDebtInfo.total > 0) {
@@ -142,6 +138,36 @@ function (Backbone, PayCalcModel, Partner, Payment) {
         }
       }
       return returnedDebtInfo;
+    },
+
+    /**
+     * Adds sponsor payment.
+     * Creates payment with passed amount and recrease takers balance. Adds
+     * this payment to payment subject and saves the subject.
+     * @param sponsor Partner instance, representing sponsor.
+     * @param taker Partner instance, representing partner, who take back money.
+     * @param {number} amount How much money sponsor give.
+     * @returns If errors has been detected, then returns array with error
+     *   strings, otherwise return created Payment instance.
+     */
+    addSponsorPayment: function (sponsor, taker, amount) {
+      if (amount > this.getPartnerBalance(taker)) {
+        return ['Money taker has less balance than sponsor want to give.'];
+      }
+
+      var payment = this.addPayment(sponsor, amount);
+      if (!(payment instanceof Payment)) {
+        return payment;
+      }
+
+      payment.save();
+      this.save();
+
+      var notTakers = this.get('partners').clone();
+      notTakers.remove([taker]);
+      this.spreadMoney(amount, notTakers);
+
+      return payment;
     },
 
     removePartner: function (partner) {
@@ -171,13 +197,18 @@ function (Backbone, PayCalcModel, Partner, Payment) {
      *     ({partner: ..., amount: ...}).
      */
     spreadMoney: function (amount, excludePartners) {
+      var self = this;
+      var partnerBalance;
+      var returnPart;
       var spreadedInfo = {
         total: 0,
         parts: {}
       };
-      var self = this;
 
       this.get('partners').each(function (partner) {
+        if (excludePartners.get(partner)) {
+          return;
+        }
         partnerBalance = self.getPartnerBalance(partner);
         if (partnerBalance <= 0) {
           return;

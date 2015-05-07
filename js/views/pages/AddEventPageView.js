@@ -44,13 +44,6 @@ function (_, PageView, Event, Partner) {
       else {
         this.showErrors(event);
       }
-    },
-
-    showErrors: function (errors) {
-      var errorsWrapper = this.$el.find('.errors').empty();
-      _.each(errors, function (errorString) {
-        errorsWrapper.append(errorString);
-      });
     }
   });
 
