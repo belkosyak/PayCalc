@@ -107,8 +107,20 @@ function (Backbone, PayCalcModel, Partner, Payment) {
       return payments;
     },
 
+    /**
+     * Returns full partner debt for this payment subject.
+     * Creates partner's payment and recrease other payment subject partners
+     * payments.
+     * @param partner Partner object
+     * @return {object} Hash with keys:
+     *   - total: Total amount of returned debt.
+     *   - parts: Hash of returned parts of debt, keys are user ids and
+     *   values are objects with user info and amounts
+     *   ({partner: ..., amount: ...}).
+     */
     returnPartnerDebt: function (partner) {
       var debtorBalance = this.getPartnerBalance(partner);
+      // Partner with positive balance cannot return debt, debt is negative balance.
       if (debtorBalance >= 0) {
         return;
       }
@@ -120,16 +132,37 @@ function (Backbone, PayCalcModel, Partner, Payment) {
       var self = this;
       var partnerBalance;
       var returnPart;
+      // Hash of returned parts of debt, keys are user ids and values are
+      // objects with user info and amounts ({partner: ..., amount: ...}).
+      var returnedDebtInfo = {
+        total: 0,
+        parts: {}
+      };
+
       this.get('partners').each(function (partner) {
         partnerBalance = self.getPartnerBalance(partner);
-        if (partnerBalance > 0) {
-          self.getPartnerPayments(partner).each(function (payment) {
-            returnPart = Math.min(payment.get('amount'), debt);
-            debt -= returnPart;
-            payment.set('amount', payment.get('amount') - returnPart);
-            payment.save();
-          });
+        if (partnerBalance <= 0) {
+          return;
         }
+        self.getPartnerPayments(partner).each(function (payment) {
+          returnPart = Math.min(payment.get('amount'), debt);
+          debt -= returnPart;
+          payment.set('amount', payment.get('amount') - returnPart);
+          payment.save();
+
+          // Fill array with returned parts info.
+          if (returnedDebtInfo.parts[partner.get('id')]) {
+            returnedDebtInfo.parts[partner.get('id')].amount += returnPart;
+          }
+          else {
+            returnedDebtInfo.parts[partner.get('id')] = {
+              partner: partner,
+              amount: returnPart
+            };
+          }
+          returnedDebtInfo.total += returnPart;
+
+        });
       });
       if (debt > 0) {
         throw {
@@ -137,6 +170,7 @@ function (Backbone, PayCalcModel, Partner, Payment) {
           toString: function () { return this.name; }
         }
       }
+      return returnedDebtInfo;
     },
 
     removePartner: function (partner) {

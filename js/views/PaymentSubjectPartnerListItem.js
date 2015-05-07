@@ -19,6 +19,13 @@ function (_, Backbone) {
       </div>\n\
     '),
 
+    returnDebtTpl: _.template("\n\
+      <%= partnerName %> debt (<%= totalAmount %>) has been returned to:\n\
+      <% _.each(parts, function (part) { %>\n\
+        <%= part.partner.get('name') %>: <%= part.amount %>\n\
+      <% });%>\n\
+    "),
+
     initialize: function (options) {
       this.subject = options.subject;
     },
@@ -41,7 +48,12 @@ function (_, Backbone) {
 
     returnDebt: function () {
       if (confirm('Are you sure?')) {
-        this.subject.returnPartnerDebt(this.model);
+        var returnedInfo = this.subject.returnPartnerDebt(this.model);
+        alert(this.returnDebtTpl({
+          partnerName: this.model.get('name'),
+          totalAmount: returnedInfo.total,
+          parts: returnedInfo.parts
+        }));
         Backbone.history.loadUrl(Backbone.history.fragment);
       }
     }

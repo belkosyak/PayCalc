@@ -22,6 +22,9 @@ function (_, Backbone) {
           );
         });
       }
+      _.defer(function () {
+        self.$el.find('.init-focus').focus();  
+      });
     }
   });
 

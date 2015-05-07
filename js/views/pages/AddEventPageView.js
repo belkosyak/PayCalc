@@ -13,7 +13,7 @@ function (_, PageView, Event, Partner) {
         <div class="page-body container">\n\
           <div class="errors"></div>\n\
           <div class="form-group">\n\
-            <input type="text" placeholder="Name" class="form-control" />\n\
+            <input type="text" placeholder="Name" class="form-control init-focus" />\n\
           </div>\n\
           <div class="form-group">\n\
             <input class="add-event-button btn btn-primary btn-block" type="button" value="Add" />\n\

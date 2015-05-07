@@ -20,7 +20,8 @@ function (_, PageView, Event, Partner) {
           </div>\n\
           <div class="form-group">\n\
             <label for="name">or Type in name</label>\n\
-            <input type="text" id="name" placeholder="Name" class="form-control"/>\n\
+            <input type="text" id="name" placeholder="Name"\n\
+                class="form-control init-focus"/>\n\
           </div>\n\
           <div class="form-group">\n\
             <input class="add-partner-button btn btn-primary btn-block"\n\

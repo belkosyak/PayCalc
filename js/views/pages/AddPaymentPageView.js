@@ -14,7 +14,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
             <div class="form-group">\n\
               <label for="cost" class="col-xs-3 control-label">How much</label>\n\
               <div class="col-xs-9">\n\
-                <input type="text" id="cost" class="form-control" />\n\
+                <input type="text" id="cost" class="form-control init-focus" />\n\
               </div>\n\
             </div>\n\
             <div class="form-group">\n\
