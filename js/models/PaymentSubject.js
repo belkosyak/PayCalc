@@ -115,8 +115,8 @@ function (Backbone, PayCalcModel, Partner, Payment) {
      * @return {object} Hash with keys:
      *   - total: Total amount of returned debt.
      *   - parts: Hash of returned parts of debt, keys are user ids and
-     *   values are objects with user info and amounts
-     *   ({partner: ..., amount: ...}).
+     *     values are objects with user info and amounts
+     *     ({partner: ..., amount: ...}).
      */
     returnPartnerDebt: function (partner) {
       var debtorBalance = this.getPartnerBalance(partner);
@@ -132,39 +132,10 @@ function (Backbone, PayCalcModel, Partner, Payment) {
       var self = this;
       var partnerBalance;
       var returnPart;
-      // Hash of returned parts of debt, keys are user ids and values are
-      // objects with user info and amounts ({partner: ..., amount: ...}).
-      var returnedDebtInfo = {
-        total: 0,
-        parts: {}
-      };
 
-      this.get('partners').each(function (partner) {
-        partnerBalance = self.getPartnerBalance(partner);
-        if (partnerBalance <= 0) {
-          return;
-        }
-        self.getPartnerPayments(partner).each(function (payment) {
-          returnPart = Math.min(payment.get('amount'), debt);
-          debt -= returnPart;
-          payment.set('amount', payment.get('amount') - returnPart);
-          payment.save();
+      var returnedDebtInfo = this.spreadMoney(debt, new Backbone.Collection([partner]));
 
-          // Fill array with returned parts info.
-          if (returnedDebtInfo.parts[partner.get('id')]) {
-            returnedDebtInfo.parts[partner.get('id')].amount += returnPart;
-          }
-          else {
-            returnedDebtInfo.parts[partner.get('id')] = {
-              partner: partner,
-              amount: returnPart
-            };
-          }
-          returnedDebtInfo.total += returnPart;
-
-        });
-      });
-      if (debt > 0) {
+      if (debt - returnedDebtInfo.total > 0) {
         throw {
           name: "Not full debt has been payed.",
           toString: function () { return this.name; }
@@ -186,7 +157,52 @@ function (Backbone, PayCalcModel, Partner, Payment) {
       else {
         this.save();
       }
-    }
+    },
+
+    /**
+     * Decrease payment subject partners payments by passed amount of money.
+     * @param amount Amount of money to spread
+     * @param excludePartners Backbone collection with partners, who shouldn't
+     *   get money.
+     * @return {object} Hash with keys:
+     *   - total: Total amount of returned debt.
+     *   - parts: Hash of returned parts of debt, keys are user ids and
+     *     values are objects with user info and amounts
+     *     ({partner: ..., amount: ...}).
+     */
+    spreadMoney: function (amount, excludePartners) {
+      var spreadedInfo = {
+        total: 0,
+        parts: {}
+      };
+      var self = this;
+
+      this.get('partners').each(function (partner) {
+        partnerBalance = self.getPartnerBalance(partner);
+        if (partnerBalance <= 0) {
+          return;
+        }
+        self.getPartnerPayments(partner).each(function (payment) {
+          returnPart = Math.min(payment.get('amount'), amount);
+          amount -= returnPart;
+          payment.set('amount', payment.get('amount') - returnPart);
+          payment.save();
+
+          // Fill array with returned parts info.
+          if (spreadedInfo.parts[partner.get('id')]) {
+            spreadedInfo.parts[partner.get('id')].amount += returnPart;
+          }
+          else {
+            spreadedInfo.parts[partner.get('id')] = {
+              partner: partner,
+              amount: returnPart
+            };
+          }
+          spreadedInfo.total += returnPart;
+        });
+      });
+      return spreadedInfo;
+    },
     
   });
 });
