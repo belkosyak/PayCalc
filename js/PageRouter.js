@@ -50,7 +50,6 @@ function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
         }
         // Show new content.
         var callback = this.paths[page];
-        // TODO: escape arguments from path.
         this[callback].apply(this, args);
       }
     },
@@ -100,7 +99,7 @@ function (Backbone, EventsPageView, AddEventPageView, AddEventPartnerPageView,
       this.pageView = new PaymentSubjectPageView({
         model: event.get('paymentSubjects').get(subjectId),
         event: event,
-        backPath: decodeURIComponent(backPath)
+        backPath: backPath ? decodeURIComponent(backPath) : 'event/' + event.get('id')
       });
     },
 

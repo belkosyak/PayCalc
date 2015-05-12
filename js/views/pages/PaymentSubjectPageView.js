@@ -4,7 +4,7 @@ function (_, PageView, NameTextFieldView, PaymentSubjectPartnerListItem) {
   return PageView.extend({
     template: _.template('\n\
       <div class="payment-subject-page">\n\
-        <div class="page-title h1 container"></div>\n\
+        <div class="page-title container"></div>\n\
         <div class="page-controls container">\n\
           <a href="#<%= backPath %>" class="btn btn-default">Back</a>\n\
           <a href="#add-sponsor/<%= eventId %>/<%= subjectId %>"\n\
@@ -25,7 +25,12 @@ function (_, PageView, NameTextFieldView, PaymentSubjectPartnerListItem) {
     },
 
     subviews: {
-      '.page-title': NameTextFieldView
+      '.page-title': {
+        view: NameTextFieldView,
+        options: {
+          label: "Payment"
+        }
+      }
     },
 
     render: function () {

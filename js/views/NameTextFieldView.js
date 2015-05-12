@@ -2,11 +2,34 @@ define(['underscore', 'backbone'],
 function (_, Backbone) {
 
   // View to render textfield, which represents some model 'name' property.
-  return Backbone.View.extend({
-    template: _.template('<div class="form-group"><input type="text" class="form-control" value="<%- name %>"/></div>'),
+  return Backbone.View.extend({    
+    template: _.template([
+      '<div class="form-horizontal m-t-10">',
+        '<div class="form-group">',
+          '<% if (label) { %>',
+            '<label for="name_input" class="col-xs-3 control-label m-t-10">',
+              '<%= label %>',
+            '</label>',
+            '<div class="col-xs-9">',
+              '<input type="text" class="form-control"',
+                  ' id="name_input" value="<%- name %>"/>',
+            '</div>',
+          '<% } else { %>',
+            '<div class="col-xs-12">',
+              '<input type="text" class="form-control"',
+                  ' id="name_input" value="<%- name %>"/>',
+            '</div>',
+          '<% } %>',
+        '</div>',
+      '</div>'
+    ].join('')),
 
     events: {
       'change input': 'changeName'
+    },
+
+    initialize: function (options) {
+      this.options = options;
     },
 
     changeName: function() {
@@ -22,7 +45,8 @@ function (_, Backbone) {
 
     render: function() {
       this.$el.html(this.template({
-        name: this.model.get('name')
+        name: this.model.get('name'),
+        label: this.options.label || null
       }));
       return this;
     },
