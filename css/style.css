@@ -9,6 +9,11 @@ body {
   height: 100%;
 }
 
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .no-padding {
   padding: 0;
 }
@@ -52,16 +57,14 @@ body {
   margin-top: 10px;
 }
 
-.checkbox-inline {
+.checkbox-inline,
+.radio-inline {
   padding: 5px 5px 5px 25px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.checkbox-inline:checked {
-  background: #ccc;
-}
-
-.payment-partner-list .checkbox-inline {
+.payment-partner-list .checkbox-inline,
+.payment-partner-list .radio-inline {
   margin: 0 10px 10px 0;
 }
