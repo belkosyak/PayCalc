@@ -34,7 +34,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
           </div>\n\
           <div class="form-group">\n\
             <label>Choose partners to pay for</label>\n\
-            <div class="form-group">\n\
+            <div class="form-group bulk-buttons">\n\
               <div id="select_all_partners"\n\
                   class="btn btn btn-success btn-sm">\n\
                 Select all\n\
@@ -45,16 +45,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
               </div>\n\
             </div>\n\
             <div class="payment-partner-list">\n\
-              <% partners.each(function (partner) { %>\n\
-                <label class="checkbox-inline">\n\
-                  <input type="checkbox" data-id="<%= partner.get("id") %>"\n\
-                    <% if (partner == payer) { %>\n\
-                      disabled="disabled" checked\n\
-                    <% } %>\n\
-                  >\n\
-                  <%- partner.get("name") %>\n\
-                </label>\n\
-              <% }); %>\n\
+              Partners\n\
             </div>\n\
           </div>\n\
           <div class="form-group">\n\
@@ -62,6 +53,39 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
           </div>\n\
         </div>\n\
       </div>\n\
+    '),
+
+    partnersCheckboxListTpl: _.template('\n\
+      <% partners.each(function (partner) { %>\n\
+        <label class="checkbox-inline">\n\
+          <input type="checkbox" data-id="<%= partner.get("id") %>"\n\
+            <% if (partner == payer) { %>\n\
+              disabled="disabled "\n\
+            <% } %>\n\
+            <% if (partner == payer \n\
+                  || (paymentPartners && paymentPartners.get(partner))) { %>\n\
+              checked\n\
+            <% } %>\n\
+          >\n\
+          <%- partner.get("name") %>\n\
+        </label>\n\
+      <% }); %>\n\
+    '),
+
+    partnersRadioListTpl: _.template('\n\
+      <% partners.each(function (partner) { %>\n\
+        <% if (partner != payer) { %>\n\
+          <label class="radio-inline">\n\
+            <input type="radio" name="partner_radio"\n\
+                    data-id="<%= partner.get("id") %>"\n\
+              <% if (paymentPartners && paymentPartners.get(partner)) { %>\n\
+                checked\n\
+              <% } %>\n\
+            >\n\
+            <%- partner.get("name") %>\n\
+          </label>\n\
+        <% } %>\n\
+      <% }); %>\n\
     '),
 
     events: {
@@ -73,35 +97,29 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
 
     render: function () {
       var partners = this.options.event.get('partners').clone();
-      partners = this.makePayerFirst(partners, this.options.payer);
+      this.options.partners = this.makePayerFirst(partners, this.options.payer);
+
       this.$el.html(this.template({
         eventId: this.options.eventId,
-        partners: partners,
-        backPath: this.options.backPath,
-        payer: this.options.payer
+        backPath: this.options.backPath
       }));
+
+      this.insertPartnersHtml(null, false);
       return this;
     },
 
     addPayment: function () {
-      var paymentPartners = new Backbone.Collection();
       var event = this.options.event;
-      var partners = event.get('partners');
       var errors;
 
       var name = this.$('#name').val();
       var cost = parseFloat(this.$('#cost').val());
       var isLoan = this.$('#is_loan').prop('checked');
 
-      // Collect all checked partners.
-      this.$('input:checkbox').each(function () {
-        if ($(this).prop('checked')) {
-          paymentPartners.push(partners.get($(this).data('id')));
-        }
-      });
+      var paymentPartners = this.collectPaymentPartners(isLoan);
 
-      if (isLoan && paymentPartners.length > 2) {
-        errors = ['You can lend only one person.'];
+      if (isLoan && paymentPartners.length != 2) {
+        errors = ['You can lend one and only one person.'];
       }
       else {
         name = this.generateName(name, cost, isLoan, paymentPartners);
@@ -142,7 +160,13 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
 
     toggleIsLoan: function () {
       var isLoan = this.$('#is_loan').prop('checked');
-      debugger;
+      this.togglePartnerList(isLoan);
+      if (isLoan) {
+        this.$('.bulk-buttons').hide();
+      }
+      else {
+        this.$('.bulk-buttons').show();
+      }
     },
 
     generateName: function (name, cost, isLoan, paymentPartners) {
@@ -159,7 +183,7 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
         });
         generatedName += partnerNames.join(', ');
         if (name) {
-          generatedName += "(" + name + ")";
+          generatedName += " (" + name + ")";
         }
       }
       else if (!name) {
@@ -172,7 +196,33 @@ function (_, Backbone, PageView, Payment, Partner, PaymentSubject) {
       payer = partners.remove(payer);
       partners.unshift(payer);
       return partners;
-    }
+    },
 
+    togglePartnerList: function (isLoan) {
+      var paymentPartners = this.collectPaymentPartners(!isLoan);
+      this.insertPartnersHtml(paymentPartners, isLoan);
+    },
+
+    collectPaymentPartners: function (isRadios) {
+      var paymentPartners = new Backbone.Collection();
+      var partners = this.options.event.get('partners');
+      if (isRadios) {
+        paymentPartners.push(this.options.payer);
+      }
+      var inputSelector = 'input:' + (isRadios ? 'radio' : 'checkbox') + ':checked';
+      this.$('.payment-partner-list ' + inputSelector).each(function () {
+        paymentPartners.push(partners.get($(this).data('id')));
+      });
+      return paymentPartners;
+    },
+
+    insertPartnersHtml: function (paymentPartners, isRadios) {
+      var tplField = isRadios ? 'partnersRadioListTpl' : 'partnersCheckboxListTpl';
+      this.$('.payment-partner-list').html(this[tplField]({
+        partners: this.options.partners,
+        payer: this.options.payer,
+        paymentPartners: paymentPartners
+      }));
+    }
   });
 });
